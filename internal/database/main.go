@@ -33,7 +33,7 @@ func getConnectionPool() *pgxpool.Pool {
 
 func getDSN() string {
 	return fmt.Sprintf(
-		"host=%s port=%d dbname=%s user=%s password=%s sslmode=disable",
+		"host=%s port=%d dbname=%s user=%s password=%s sslmode=require",
 		config.Env.DBHost, config.Env.DBPort,
 		config.Env.DBName, config.Env.DBUser,
 		config.Env.DBPassword,
