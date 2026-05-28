@@ -43,8 +43,5 @@ RUN --mount=type=cache,target=/var/cache/apk,sharing=locked \
 
 
 COPY --from=builder /app/govd ./govd
-RUN echo '#!/bin/sh' > /app/start.sh && \
-    echo 'printf "BOT_TOKEN=%s\nDATABASE_URL=%s\n" "$BOT_TOKEN" "$DATABASE_URL" > /app/.env' >> /app/start.sh && \
-    echo 'exec /app/govd' >> /app/start.sh && \
-    chmod +x /app/start.sh
-ENTRYPOINT ["/bin/sh", "/app/start.sh"]
+
+ENTRYPOINT ["./govd"]
