@@ -41,6 +41,8 @@ RUN --mount=type=cache,target=/var/cache/apk,sharing=locked \
         ffmpeg \
         libheif
 
-COPY --from=builder /app/govd ./govd
 
-ENTRYPOINT ["./govd"]
+COPY --from=builder /app/govd ./govd
+   COPY docker-entrypoint.sh ./docker-entrypoint.sh
+   RUN chmod +x ./docker-entrypoint.sh
+   ENTRYPOINT ["./docker-entrypoint.sh"]
