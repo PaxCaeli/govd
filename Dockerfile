@@ -43,6 +43,8 @@ RUN --mount=type=cache,target=/var/cache/apk,sharing=locked \
 
 
 COPY --from=builder /app/govd ./govd
-   COPY docker-entrypoint.sh ./docker-entrypoint.sh
-   RUN chmod +x ./docker-entrypoint.sh
-   ENTRYPOINT ["./docker-entrypoint.sh"]
+RUN echo '#!/bin/sh' > /app/start.sh && \
+    echo 'printf "BOT_TOKEN=%s\nDATABASE_URL=%s\n" "$BOT_TOKEN" "$DATABASE_URL" > /app/.env' >> /app/start.sh && \
+    echo 'exec /app/govd' >> /app/start.sh && \
+    chmod +x /app/start.sh
+ENTRYPOINT ["/bin/sh", "/app/start.sh"]
